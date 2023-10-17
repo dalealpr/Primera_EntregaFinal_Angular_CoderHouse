@@ -1,0 +1,26 @@
+<mat-drawer-container class="example-container" autosize>
+  <!-- SIDEBAR -->
+  <mat-drawer
+    [opened]="showSidebar"
+    #drawer
+    class="example-sidenav sideNav"
+    mode="side"
+    position="start"
+  >
+    <!-- SIDEBAR COMPONENT  -->
+    <app-sidebar></app-sidebar>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <!-- TOOLBAR COMPONENT -->
+    <app-toolbar (toggleSidebar)="showSidebar = !showSidebar"></app-toolbar>
+
+    <!-- ------------------------------------------------------------------------------------------------ -->
+    <!-- MAIN -->
+    <main>
+      <h1 fontWeight="bolder" appHeadline class="title">JUGADORES</h1>
+      <app-jugadores></app-jugadores>
+    </main>
+  </div>
+  <!-- ------------------------------------------------------------------------------------------------ -->
+</mat-drawer-container>
