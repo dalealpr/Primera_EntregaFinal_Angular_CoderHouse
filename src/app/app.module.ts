@@ -8,9 +8,7 @@ import { JugadoresComponent } from './dashboard/pages/jugadores/jugadores.compon
 import { FormularioComponent } from './dashboard/pages/formulario/formulario.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { FormErrorPipe } from './shared/pipes/form-error.pipe';
 
-// Angular Material
 
 @NgModule({
   declarations: [
