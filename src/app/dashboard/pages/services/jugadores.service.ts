@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Jugador } from '../jugadores/models';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class JugadoresService {
-
-  getJugadores(): Jugador[] {
-    return [
+  getJugadores(): Observable<Jugador[]> {
+    const jugadores: Jugador[] = [
       {
         id: 1001,
         nombre: 'Lionel',
@@ -54,5 +54,7 @@ export class JugadoresService {
         posicion: 'Delantero',
       },
     ];
+
+    return of(jugadores);
   }
 }
