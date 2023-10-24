@@ -5,7 +5,6 @@ import { Jugador } from '../jugadores/models';
   providedIn: 'root',
 })
 export class JugadoresService {
-  constructor() {}
 
   getJugadores(): Jugador[] {
     return [

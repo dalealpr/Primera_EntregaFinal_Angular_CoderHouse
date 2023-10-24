@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatInputModule } from '@angular/material/input';
+import { JugadoresService } from '../services/jugadores.service';
+
 
 @NgModule({
   declarations: [
@@ -31,5 +33,8 @@ import { MatInputModule } from '@angular/material/input';
     SharedModule,
   ],
   exports: [JugadoresComponent],
+  providers:[
+    JugadoresService,
+  ]
 })
 export class JugadoresModule {}

@@ -3,6 +3,7 @@ import { Jugador } from './models';
 import { MatDialog } from '@angular/material/dialog';
 import { JugadoresDialogComponent } from './components/jugadores-dialog/jugadores-dialog.component';
 import { JugadoresService } from '../services/jugadores.service';
+import { NotifierService } from '../services/notifier.service';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class JugadoresComponent {
 
   constructor(
     private matDialog: MatDialog, 
-    private jugadoresService:JugadoresService
+    private jugadoresService:JugadoresService,
+    private notifierService: NotifierService
     ) {
       this.jugadores = this.jugadoresService.getJugadores();
     }
@@ -32,7 +34,7 @@ export class JugadoresComponent {
         //cuando se cierra ejecuta el next
         next: (dataForm) => {
           // si existe dataForm y es !=null
-          if (!!dataForm) {
+          if (!dataForm) {
             //se genera un nuevo array con:
             this.jugadores = [
               //copia del array anterior mas:
@@ -60,7 +62,7 @@ export class JugadoresComponent {
       .afterClosed()
       .subscribe({
         next: (editDataForm) => {
-          if (!!editDataForm) {
+          if (!editDataForm) {
             this.jugadores = this.jugadores.map((value) =>
               value.id === jugador.id ? { ...value, ...editDataForm } : value
             );
@@ -76,5 +78,6 @@ export class JugadoresComponent {
       //dejo solo los jugadores que tengan un id distinto al id asociado al click delete
       (jugador) => jugador.id !== jugadorId
     );
+    this.notifierService.showSuccessNotif('Jugador Borrado', `El jugador ha sido Borrado de la tabla`)
   }
 }
