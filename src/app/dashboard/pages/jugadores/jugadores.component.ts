@@ -88,13 +88,13 @@ export class JugadoresComponent {
   // }
 
   //METODO BORRAR JUGADOR
-//   onDeletePlayer(jugadorId: number): void {
-//     //fitro por jugador del array jugadores
-//     this.jugadores = this.jugadores.filter(
-//       //dejo solo los jugadores que tengan un id distinto al id asociado al click delete
-//       (jugador) => jugador.id !== jugadorId
-//     );
-//     this.notifierService.showSuccessNotif('Jugador Borrado', `El jugador ha sido Borrado de la tabla`)
-//   }
-// }
+  onDeletePlayer(jugadorId: number): void {
+    this.jugadores.pipe(
+      map((jugadores: Jugador[]) => jugadores.filter(jugador => jugador.id !== jugadorId))
+    ).subscribe((filteredJugadores: Jugador[]) => {
+      this.jugadores = of(filteredJugadores);
+      this.notifierService.showSuccessNotif('Jugador Borrado', `El jugador ha sido Borrado de la tabla`);
+    });
   }
+}
+

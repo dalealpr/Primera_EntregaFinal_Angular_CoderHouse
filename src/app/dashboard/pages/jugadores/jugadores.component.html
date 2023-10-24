@@ -11,6 +11,7 @@
 
   <app-jugadores-table
     [dataSource]="(jugadores | async) || []"
+    (deleteUser)="onDeletePlayer($event)"
     class="tableComponent"
   ></app-jugadores-table>
 </div>
