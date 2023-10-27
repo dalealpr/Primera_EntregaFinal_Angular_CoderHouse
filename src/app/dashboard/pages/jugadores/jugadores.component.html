@@ -1,19 +1,24 @@
 <div class="contJugadores">
   <h1 fontWeight="bolder" appHeadline class="title">JUGADORES</h1>
-  <button
-    class="btnAdd"
-    (click)="openUsersDialog()"
-    mat-flat-button
-    color="primary"
-  >
+  <button class="btnAdd" mat-flat-button color="primary">
     <mat-icon>add</mat-icon>
     Agregar Jugador
   </button>
 
   <app-jugadores-table
-    [dataSource]="jugadores"
-    (deleteUser)="onDeletePlayer($event)"
-    (editUser)="onEditUser($event)"
-    class="tableComponent"
+    [dataSource]="(jugadores$ | async) || []"
   ></app-jugadores-table>
 </div>
+
+<!-- <app-jugadores-table
+[dataSource]="jugadores"
+(deleteUser)="onDeletePlayer($event)"
+(editUser)="onEditUser($event)"
+class="tableComponent"
+></app-jugadores-table> -->
+
+<!-- <button
+class="btnAdd"
+(click)="openUsersDialog()"
+mat-flat-button
+color="primary" -->
