@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Jugador } from '../../models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -51,6 +51,10 @@ export class JugadoresDialogComponent {
     if (this.jugador) {
       this.jugadorForm.patchValue(this.jugador);
     }
+  }
+
+  closeDialog(){
+    this.matDialogRef.close(this.jugadorForm.value);
   }
 
   onSubmit(): void {

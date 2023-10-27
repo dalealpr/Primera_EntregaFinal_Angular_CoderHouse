@@ -9,12 +9,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 // Ejemplo
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
-import { ThemeSwitcherComponent } from '../shared/components/theme-switcher/theme-switcher.component';
 import { JugadoresModule } from './pages/jugadores/jugadores.module';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MatListModule } from '@angular/material/list';
 import { SharedModule } from '../shared/shared.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [DashboardComponent, ToolbarComponent, SidebarComponent],
@@ -29,6 +29,7 @@ import { SharedModule } from '../shared/shared.module';
     JugadoresModule,
     MatListModule,
     SharedModule,
+    RouterModule,
   ],
   exports: [DashboardComponent],
 })
