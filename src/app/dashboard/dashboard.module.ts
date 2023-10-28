@@ -15,6 +15,9 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MatListModule } from '@angular/material/list';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { HomeModule } from './pages/home/home.module';
+import { EquiposModule } from './pages/equipos/equipos.module';
+import { UsersModule } from './pages/users/users.module';
 
 @NgModule({
   declarations: [DashboardComponent, ToolbarComponent, SidebarComponent],
@@ -30,6 +33,9 @@ import { RouterModule } from '@angular/router';
     MatListModule,
     SharedModule,
     RouterModule,
+    HomeModule,
+    EquiposModule,
+    UsersModule,
   ],
   exports: [DashboardComponent],
 })

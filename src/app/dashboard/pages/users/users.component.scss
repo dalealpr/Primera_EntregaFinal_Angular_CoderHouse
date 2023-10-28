@@ -1,4 +1,4 @@
-.contHome{
+.contUsuarios{
     align-items: center;
 
 .title{
@@ -8,6 +8,13 @@
     font-weight: 900;
     margin-top: 45px;
     margin-bottom: 70px;
+}
+.btnAdd{
+    height: 42px;
+    background-color: var(--primary);
+    color: black;
+    margin-bottom: 10px;
+    font-weight: 700;
 }
 
 }

@@ -19,30 +19,12 @@ export class JugadoresDialogComponent {
     @Inject(MAT_DIALOG_DATA) public jugador?: Jugador
   ) {
     this.jugadorForm = this.fb.group({
-      nombre: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-        ],
-      ],
-      apellido: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-        ],
-      ],
+      nombre: ['', [Validators.required, Validators.minLength(3)]],
+      apellido: ['', [Validators.required, Validators.minLength(3)]],
       edad: ['', [Validators.required]],
-      nacionalidad: [
-        '',
-        [Validators.required, ],
-      ],
-      equipo: ['', [Validators.required, ]],
-      posicion: [
-        '',
-        [Validators.required,],
-      ],
+      nacionalidad: ['', [Validators.required]],
+      equipo: ['', [Validators.required]],
+      posicion: ['', [Validators.required]],
     });
 
     if (this.jugador) {
@@ -53,8 +35,8 @@ export class JugadoresDialogComponent {
     }
   }
 
-  closeDialog(){
-    this.matDialogRef.close(this.jugadorForm.value);
+  closeDialog() {
+    this.matDialogRef.close();
   }
 
   onSubmit(): void {

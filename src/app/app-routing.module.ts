@@ -5,6 +5,7 @@ import { AuthComponent } from './auth/auth.component';
 import { HomeComponent } from './dashboard/pages/home/home.component';
 import { JugadoresComponent } from './dashboard/pages/jugadores/jugadores.component';
 import { JugadoresDetailComponent } from './dashboard/pages/jugadores/components/jugadores-detail/jugadores-detail.component';
+import { UsersComponent } from './dashboard/pages/users/users.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: 'jugadores/detail/:id',
         component: JugadoresDetailComponent,
+      },
+      {
+        path: 'usuarios',
+        component: UsersComponent,
       },
     ],
   },
