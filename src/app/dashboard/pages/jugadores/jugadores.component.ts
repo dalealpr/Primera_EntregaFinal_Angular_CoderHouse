@@ -63,7 +63,7 @@ export class JugadoresComponent {
     this.n++;
   }
 
-  // METODO EDITAR JUGADOR
+  // METODO EDITAR USUARIO
   onEditUser(jugador: Jugador): void {
     this.matDialog
       .open(JugadoresDialogComponent, {
@@ -74,18 +74,15 @@ export class JugadoresComponent {
       .afterClosed()
       .subscribe((editDataForm: Jugador) => {
         if (editDataForm) {
-          // Actualiza el jugador en la lista
-          this.jugadoresService
-            .getJugadores()
+          this.jugadores
             .pipe(
-              map((jugadores: Jugador[]) => {
-                // Encuentra y actualiza el jugador en la lista
-                jugadores.forEach((j, index) => {
-                  if (j.id === jugador.id) {
-                    jugadores[index] = editDataForm;
-                  }
-                });
-                return jugadores;
+              mergeMap((jugadores: Jugador[]) => {
+                const updatedUsers = jugadores.map((u) =>
+                  u.id === jugador.id
+                    ? { ...u, ...editDataForm, id: jugador.id }
+                    : u
+                );
+                return of(updatedUsers);
               })
             )
             .subscribe((updatedJugadores: Jugador[]) => {

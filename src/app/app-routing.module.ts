@@ -6,6 +6,7 @@ import { HomeComponent } from './dashboard/pages/home/home.component';
 import { JugadoresComponent } from './dashboard/pages/jugadores/jugadores.component';
 import { JugadoresDetailComponent } from './dashboard/pages/jugadores/components/jugadores-detail/jugadores-detail.component';
 import { UsersComponent } from './dashboard/pages/users/users.component';
+import { UsersDetailComponent } from './dashboard/pages/users/components/users-detail/users-detail.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,11 @@ const routes: Routes = [
       {
         path: 'usuarios',
         component: UsersComponent,
+      },
+      // Ruta dinamica Detalle Usuario
+      {
+        path: 'usuarios/detail/:id',
+        component: UsersDetailComponent,
       },
     ],
   },

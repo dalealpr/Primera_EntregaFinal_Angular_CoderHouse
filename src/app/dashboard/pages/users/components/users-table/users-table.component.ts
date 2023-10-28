@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { User } from '../../interfaces/users';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-table',
@@ -17,4 +18,16 @@ export class UsersTableComponent {
   editUser = new EventEmitter<User>();
 
   displayedColumns = ['Id', 'Nombres', 'Email', 'Actions'];
+
+  constructor(private router: Router) {}
+
+  // Metodo Ruta Dinamica (detalle Jugador)
+  goToDetail(userId: number): void {
+    this.router.navigate(['dashboard', 'usuarios', 'detail', userId], {
+      // Query params
+      queryParams: {
+        search: 'hola mundo',
+      },
+    });
+  }
 }

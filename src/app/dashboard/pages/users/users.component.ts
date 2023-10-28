@@ -37,7 +37,7 @@ export class UsersComponent {
       });
   }
 
-  //Metodo Dialog
+  //METODO CREAR USUARIO
   openUsersDialog(): void {
     const dialogRef = this.matDialog.open(UsersDialogComponent, {
       height: '450px',
@@ -62,7 +62,7 @@ export class UsersComponent {
     this.n++;
   }
 
-  // METODO EDITAR JUGADOR
+  // METODO EDITAR USUARIO
   onEditUser(usuario: User): void {
     this.matDialog
       .open(UsersDialogComponent, {
@@ -77,7 +77,9 @@ export class UsersComponent {
             .pipe(
               mergeMap((usuarios: User[]) => {
                 const updatedUsers = usuarios.map((u) =>
-                  u.id === usuario.id ? editDataForm : u
+                  u.id === usuario.id
+                    ? { ...u, ...editDataForm, id: usuario.id }
+                    : u
                 );
                 return of(updatedUsers);
               })
@@ -87,6 +89,23 @@ export class UsersComponent {
               console.log(updatedUsuarios);
             });
         }
+      });
+  }
+
+  //METODO BORRAR USUARIO
+  onDeleteUser(usuarioId: number): void {
+    this.usuarios
+      .pipe(
+        map((usuarios: User[]) =>
+          usuarios.filter((usuario) => usuario.id !== usuarioId)
+        )
+      )
+      .subscribe((filteredUsuarios: User[]) => {
+        this.usuarios = of(filteredUsuarios);
+        this.notifierService.showSuccessNotif(
+          'Usuario Borrado',
+          `El usuario ha sido Borrado de la tabla`
+        );
       });
   }
 }
