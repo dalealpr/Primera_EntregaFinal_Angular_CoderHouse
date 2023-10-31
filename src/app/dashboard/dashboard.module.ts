@@ -18,6 +18,7 @@ import { RouterModule } from '@angular/router';
 import { HomeModule } from './pages/home/home.module';
 import { EquiposModule } from './pages/equipos/equipos.module';
 import { UsersModule } from './pages/users/users.module';
+import { EnrollmentsModule } from './pages/enrollments/enrollments.module';
 
 @NgModule({
   declarations: [DashboardComponent, ToolbarComponent, SidebarComponent],
@@ -36,6 +37,7 @@ import { UsersModule } from './pages/users/users.module';
     HomeModule,
     EquiposModule,
     UsersModule,
+    EnrollmentsModule,
   ],
   exports: [DashboardComponent],
 })

@@ -7,6 +7,7 @@ import { JugadoresComponent } from './dashboard/pages/jugadores/jugadores.compon
 import { JugadoresDetailComponent } from './dashboard/pages/jugadores/components/jugadores-detail/jugadores-detail.component';
 import { UsersComponent } from './dashboard/pages/users/users.component';
 import { UsersDetailComponent } from './dashboard/pages/users/components/users-detail/users-detail.component';
+import { EquiposComponent } from './dashboard/pages/equipos/equipos.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,10 @@ const routes: Routes = [
       {
         path: 'usuarios/detail/:id',
         component: UsersDetailComponent,
+      },
+      {
+        path: 'equipos',
+        component: EquiposComponent,
       },
     ],
   },

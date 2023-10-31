@@ -4,13 +4,14 @@ import { FullnamePipe } from './pipes/fullname.pipe';
 import { HeadlineDirective } from './direcives/headline.directive';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { FormErrorPipe } from './pipes/form-error.pipe';
-import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [FullnamePipe, HeadlineDirective, FormErrorPipe],
@@ -20,6 +21,7 @@ import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
     MatButtonModule,
     MatIconModule,
     ReactiveFormsModule,
+    FormsModule,
     MatInputModule,
     MatSidenavModule,
     MatFormFieldModule,
@@ -27,6 +29,7 @@ import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
     MatTableModule,
     FullnamePipe,
     FormErrorPipe,
+    RouterModule,
   ],
 })
 export class SharedModule {}
