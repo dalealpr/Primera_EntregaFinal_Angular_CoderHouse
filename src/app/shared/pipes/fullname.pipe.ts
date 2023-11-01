@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Jugador } from 'src/app/dashboard/pages/jugadores/models';
+import { Jugador } from 'src/app/dashboard/pages/jugadores/interfaces/jugador';
 
 @Pipe({
   name: 'fullname',

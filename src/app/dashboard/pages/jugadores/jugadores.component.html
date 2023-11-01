@@ -1,5 +1,5 @@
 <div class="contJugadores">
-  <!-- <button
+  <button
     class="btnAdd"
     (click)="openUsersDialog()"
     mat-flat-button
@@ -7,11 +7,13 @@
   >
     <mat-icon>add</mat-icon>
     Agregar Jugador
-  </button> -->
+  </button>
+  -->
 
   <app-jugadores-table
-    [dataSource]="(jugadores | async) || []"
+    [dataSource]="jugadores"
     (deleteUser)="onDeletePlayer($event)"
+    (editUser)="onEditUser($event)"
     class="tableComponent"
   ></app-jugadores-table>
 </div>

@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
-import { Jugador } from '../../models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { JugadoresService } from '../../../services/jugadores.service';
 
 @Component({
   selector: 'app-jugadores-dialog',
@@ -14,43 +14,37 @@ export class JugadoresDialogComponent {
   constructor(
     private fb: FormBuilder,
     private matDialogRef: MatDialogRef<JugadoresDialogComponent>,
+    private jugadorService: JugadoresService,
 
     // Recibo data usuario
-    @Inject(MAT_DIALOG_DATA) public jugador?: Jugador
+    @Inject(MAT_DIALOG_DATA) private jugadorId?: number
   ) {
     this.jugadorForm = this.fb.group({
-      nombre: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-        ],
-      ],
-      apellido: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-        ],
-      ],
+      nombre: ['', [Validators.required, Validators.minLength(3)]],
+      apellido: ['', [Validators.required, Validators.minLength(3)]],
       edad: ['', [Validators.required]],
-      nacionalidad: [
-        '',
-        [Validators.required, ],
-      ],
-      equipo: ['', [Validators.required, ]],
-      posicion: [
-        '',
-        [Validators.required,],
-      ],
+      nacionalidad: ['', [Validators.required]],
+      equipo: ['', [Validators.required]],
+      posicion: ['', [Validators.required]],
     });
 
-    if (this.jugador) {
-      this.jugadorForm.patchValue(this.jugador);
+    if (this.jugadorId) {
+      this.jugadorService.getJugadorById$(this.jugadorId).subscribe({
+        next: (jugador) => {
+          if (jugador) {
+            this.jugadorForm.patchValue(jugador);
+          }
+        },
+      });
     }
-    if (this.jugador) {
-      this.jugadorForm.patchValue(this.jugador);
-    }
+  }
+
+  public get isEditing(): boolean {
+    return !!this.jugadorId;
+  }
+
+  closeDialog() {
+    this.matDialogRef.close();
   }
 
   onSubmit(): void {

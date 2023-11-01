@@ -15,12 +15,9 @@
     <!-- TOOLBAR COMPONENT -->
     <app-toolbar (toggleSidebar)="showSidebar = !showSidebar"></app-toolbar>
 
-    <!-- ------------------------------------------------------------------------------------------------ -->
     <!-- MAIN -->
     <main>
-      <h1 fontWeight="bolder" appHeadline class="title">JUGADORES</h1>
-      <app-jugadores></app-jugadores>
+      <router-outlet></router-outlet>
     </main>
   </div>
-  <!-- ------------------------------------------------------------------------------------------------ -->
 </mat-drawer-container>
