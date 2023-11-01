@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { Jugador } from './models';
+import { Jugador } from './interfaces/jugador';
 import { MatDialog } from '@angular/material/dialog';
-
 import { JugadoresService } from '../services/jugadores.service';
-import { NotifierService } from '../services/notifier.service';
-import { Observable, of, mergeMap } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { JugadoresDialogComponent } from './components/jugadores-dialog/jugadores-dialog.component';
+import { NotifierService } from '../services/notifier.service';
 
 @Component({
   selector: 'app-jugadores',
@@ -15,98 +13,73 @@ import { JugadoresDialogComponent } from './components/jugadores-dialog/jugadore
 })
 export class JugadoresComponent {
   n: number = 0;
-  jugadores: Observable<Jugador[]> = of([]);
+  jugadores$: Observable<Jugador[]>;
 
   constructor(
     private matDialog: MatDialog,
     private jugadoresService: JugadoresService,
-    private notifierService: NotifierService
-  ) {}
-  ngOnInit() {
-    this.jugadoresService
-      .getJugadores()
-      .pipe(
-        map((data: Jugador[]) => {
-          return data.map((jugador) => ({
-            ...jugador,
-            nombreCompleto: `${jugador.nombre} ${jugador.apellido}`,
-          }));
-        })
-      )
-      .subscribe((transformedData: Jugador[]) => {
-        this.jugadores = of(transformedData);
-      });
+    private notifService: NotifierService
+  ) {
+    // Mostrar jugadores
+    this.jugadores$ = this.jugadoresService.getJugadores$();
   }
 
-  //Metodo Dialog
-  openUsersDialog(): void {
-    const dialogRef = this.matDialog.open(JugadoresDialogComponent, {
-      height: '512px',
-      width: '700px',
-    });
-
-    dialogRef.afterClosed().subscribe((dataForm: Jugador) => {
-      if (dataForm) {
-        dataForm.id = 3 + this.n; // Asigna un nuevo ID, por ejemplo
-        this.jugadores
-          .pipe(
-            mergeMap((jugadores: Jugador[]) => {
-              const updatedUsers = [...jugadores, dataForm]; // Agrega el nuevo usuario a la lista existente
-              return of(updatedUsers); // Emite la lista actualizada como un Observable
-            })
-          )
-          .subscribe((updatedUsers: Jugador[]) => {
-            this.jugadores = of(updatedUsers); // Actualiza la lista de usuarios en el componente
-          });
-      }
-    });
-    this.n++;
-  }
-
-  // METODO EDITAR USUARIO
-  onEditUser(jugador: Jugador): void {
+  //METODO AGREGAR JUGADOR
+  addJugador(): void {
+    // Dialog
     this.matDialog
       .open(JugadoresDialogComponent, {
-        data: jugador,
-        height: '512px',
+        height: '520px',
         width: '700px',
       })
       .afterClosed()
-      .subscribe((editDataForm: Jugador) => {
-        if (editDataForm) {
-          this.jugadores
-            .pipe(
-              mergeMap((jugadores: Jugador[]) => {
-                const updatedUsers = jugadores.map((u) =>
-                  u.id === jugador.id
-                    ? { ...u, ...editDataForm, id: jugador.id }
-                    : u
-                );
-                return of(updatedUsers);
-              })
-            )
-            .subscribe((updatedJugadores: Jugador[]) => {
-              this.jugadores = of(updatedJugadores);
-              console.log(updatedJugadores);
+      // suscripción
+      .subscribe({
+        next: (result) => {
+          if (result) {
+            this.jugadores$ = this.jugadoresService.createJugador$({
+              id: 5 + this.n,
+              nombre: result.nombre,
+              apellido: result.apellido,
+              edad: result.edad,
+              nacionalidad: result.nacionalidad,
+              equipo: result.equipo,
+              posicion: result.posicion,
             });
-        }
+            this.n++;
+          }
+        },
       });
   }
 
-  //METODO BORRAR JUGADOR
-  onDeletePlayer(jugadorId: number): void {
-    this.jugadores
-      .pipe(
-        map((jugadores: Jugador[]) =>
-          jugadores.filter((jugador) => jugador.id !== jugadorId)
-        )
-      )
-      .subscribe((filteredJugadores: Jugador[]) => {
-        this.jugadores = of(filteredJugadores);
-        this.notifierService.showSuccessNotif(
-          'Jugador Borrado',
-          `El jugador ha sido Borrado de la tabla`
-        );
+  // METODO BORRAR JUGADOR
+  onDeleteJugador(JugadorId: number): void {
+    this.jugadores$ = this.jugadoresService.deleteJugador$(JugadorId);
+    this.notifService.showSuccessNotif(
+      'Jugador Borrado',
+      `El Jugador ha sido Borrado de la tabla`
+    );
+  }
+
+  // METODO EDITAR JUGADOR
+  onEditJugador(JugadorId: number): void {
+    // Dialog
+    this.matDialog
+      .open(JugadoresDialogComponent, {
+        data: JugadorId,
+        height: '520px',
+        width: '700px',
+      })
+      .afterClosed()
+      .subscribe({
+        next: (result) => {
+          if (!!result) {
+            this.jugadores$ = this.jugadoresService.editJugador$(
+              JugadorId,
+              result
+            );
+          }
+        },
       });
   }
 }

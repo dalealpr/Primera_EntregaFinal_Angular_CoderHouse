@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { User } from '../../interfaces/users';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { UsersService } from '../../../services/users.service';
 
 @Component({
   selector: 'app-users-dialog',
@@ -14,9 +15,10 @@ export class UsersDialogComponent {
   constructor(
     private fb: FormBuilder,
     private matDialogRef: MatDialogRef<UsersDialogComponent>,
+    private userService: UsersService,
 
     // Recibo data usuario
-    @Inject(MAT_DIALOG_DATA) public usuario?: User
+    @Inject(MAT_DIALOG_DATA) private usuarioId?: number
   ) {
     this.userForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(3)]],
@@ -24,12 +26,19 @@ export class UsersDialogComponent {
       email: ['', [Validators.required]],
     });
 
-    if (this.usuario) {
-      this.userForm.patchValue(this.usuario);
+    if (this.usuarioId) {
+      this.userService.getUserById$(this.usuarioId).subscribe({
+        next: (user) => {
+          if (user) {
+            this.userForm.patchValue(user);
+          }
+        },
+      });
     }
-    if (this.usuario) {
-      this.userForm.patchValue(this.usuario);
-    }
+  }
+
+  public get isEditing(): boolean {
+    return !!this.usuarioId;
   }
 
   closeDialog() {

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Equipo } from './interfaces/equipo';
 import { EquiposService } from '../services/equipos.service';
-import { Observable, of, mergeMap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { EquiposDialogComponent } from './components/equipos-dialog/equipos-dialog.component';
+import { NotifierService } from '../services/notifier.service';
 
 @Component({
   selector: 'app-equipos',
@@ -16,13 +17,14 @@ export class EquiposComponent {
 
   constructor(
     private equiposService: EquiposService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private notifService: NotifierService
   ) {
-    // MOSTRAR CURSOS
+    // Mostrar equipos
     this.equipos$ = this.equiposService.getEquipos$();
   }
 
-  //METODO AGREGAR CURSO
+  //METODO AGREGAR EQUIPO
   addEquipo(): void {
     // Dialog
     this.matDialog
@@ -48,12 +50,16 @@ export class EquiposComponent {
       });
   }
 
-  // METODO BORRAR CURSO
+  // METODO BORRAR EQUIPO
   onDeleteEquipo(equipoId: number): void {
     this.equipos$ = this.equiposService.deleteEquipo$(equipoId);
+    this.notifService.showSuccessNotif(
+      'Equipo Borrado',
+      `El equipo ha sido Borrado de la tabla`
+    );
   }
 
-  // METODO EDITAR CURSO
+  // METODO EDITAR EQUIPO
   onEditEquipo(equipoId: number): void {
     // Dialog
     this.matDialog

@@ -6,7 +6,6 @@ import {
   FormControl,
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Equipo } from '../../interfaces/equipo';
 import { EquiposService } from '../../../services/equipos.service';
 
 @Component({

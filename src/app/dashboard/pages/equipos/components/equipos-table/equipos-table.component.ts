@@ -21,13 +21,8 @@ export class EquiposTableComponent {
 
   constructor(private router: Router) {}
 
-  // Metodo Ruta Dinamica (detalle Jugador)
-  // goToDetail(userId: number): void {
-  //   this.router.navigate(['dashboard', 'jugadores', 'detail', userId], {
-  //     // Query params
-  //     queryParams: {
-  //       search: 'hola mundo',
-  //     },
-  //   });
-  // }
+  // Metodo Ruta Dinamica (detalle Equipo)
+  goToDetail(equipoId: number): void {
+    this.router.navigate(['dashboard', 'equipo', 'detail', equipoId]);
+  }
 }

@@ -1,30 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
-import { Notificaion } from '../jugadores/models/notification';
+import { Notificaion } from 'src/app/shared/interfaces/notification';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotifierService {
   // Observable tipo Subject
-  private notifier$ = new Subject<Notificaion>()
+  private notifier$ = new Subject<Notificaion>();
 
   constructor() {
     // Subscripcion al observable
-      this.notifier$.subscribe({
-        next:(myNotification)=>{
-          Swal.fire(myNotification.title, myNotification.message, myNotification.type)
-        }
-      })
-   }
+    this.notifier$.subscribe({
+      next: (myNotification) => {
+        Swal.fire(
+          myNotification.title,
+          myNotification.message,
+          myNotification.type
+        );
+      },
+    });
+  }
 
   //  Metodo MostrarNotificacion
-  showSuccessNotif(title:string, message: string):void{
+  showSuccessNotif(title: string, message: string): void {
     this.notifier$.next({
       type: 'success',
       message,
-      title
-    })
+      title,
+    });
   }
 }

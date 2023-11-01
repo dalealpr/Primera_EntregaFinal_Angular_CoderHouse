@@ -15,7 +15,7 @@ export class UsersTableComponent {
   deleteUser = new EventEmitter<number>();
 
   @Output()
-  editUser = new EventEmitter<User>();
+  editUser = new EventEmitter<number>();
 
   displayedColumns = ['Id', 'Nombres', 'Email', 'Actions'];
 

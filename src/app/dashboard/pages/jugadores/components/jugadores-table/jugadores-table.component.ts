@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Jugador } from '../../models';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Jugador } from '../../interfaces/jugador';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,15 +7,15 @@ import { Router } from '@angular/router';
   templateUrl: './jugadores-table.component.html',
   styleUrls: ['./jugadores-table.component.scss'],
 })
-export class JugadoresTableComponent {
+export class JugadoresTableComponent implements OnInit {
   @Input()
   dataSource: Jugador[] = [];
 
   @Output()
-  deleteUser = new EventEmitter<number>();
+  deleteJugador = new EventEmitter<number>();
 
   @Output()
-  editUser = new EventEmitter<Jugador>();
+  editJugador = new EventEmitter<number>();
 
   displayedColumns = [
     'Nombre y Apellido',
@@ -27,14 +27,12 @@ export class JugadoresTableComponent {
   ];
 
   constructor(private router: Router) {}
+  ngOnInit(): void {
+    console.log('ERROR:' + this.deleteJugador);
+  }
 
   // Metodo Ruta Dinamica (detalle Jugador)
-  goToDetail(userId: number): void {
-    this.router.navigate(['dashboard', 'jugadores', 'detail', userId], {
-      // Query params
-      queryParams: {
-        search: 'hola mundo',
-      },
-    });
-  }
+  // goToDetail(userId: number): void {
+  //   this.router.navigate(['dashboard', 'jugadores', 'detail', userId]);
+  // }
 }
